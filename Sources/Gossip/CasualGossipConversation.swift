@@ -6,11 +6,11 @@ import Logging
 
 public class CasualGossipConversation {
     
-    ///
+    /// The stream of packets received from a `Blabber`.
     
     internal let incoming: AnyPublisher<Data, Never>
 
-    ///
+    /// The stream of packets to be sent back.
     
     internal let outgoing = PassthroughSubject<Data, Never>()
 
