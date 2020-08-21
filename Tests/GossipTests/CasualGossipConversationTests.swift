@@ -35,7 +35,10 @@ final class CasualGossipConversationTests: XCTestCase {
 
         conversation.send(packet)
 
-        waitForExpectations(timeout: 3, handler: nil)
+        waitForExpectations(timeout: 3) { maybeError in
+            XCTAssertNil(maybeError)
+            conversation.cancel()
+        }
 
         XCTAssertEqual(packet, sentPacket)
     }
@@ -61,6 +64,7 @@ final class CasualGossipConversationTests: XCTestCase {
 
         waitForExpectations(timeout: 3) { maybeError in
             XCTAssertNil(maybeError)
+            conversation.cancel()
             packets.cancel()
         }
         
