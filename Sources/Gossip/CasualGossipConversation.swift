@@ -19,10 +19,15 @@ public class CasualGossipConversation {
 
     ///
     
-    public init<Incoming>(from incoming: Incoming, sendingWith send: @escaping (Data) -> Void)
+    public typealias DeterministicSendFunction = (Data) -> Void
+    
+    ///
+    
+    public init<Incoming>(from incoming: Incoming,
+                          sendingWith send: DeterministicSendFunction? = nil)
     where Incoming: Publisher, Incoming.Output == Output, Incoming.Failure == Never {
         self.incoming = incoming.eraseToAnyPublisher()
-        self.services = [outgoing.sink { packet in send(packet) }]
+        self.services = [outgoing.sink { packet in send?(packet) }]
     }
     
 }

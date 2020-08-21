@@ -47,9 +47,8 @@ final class CasualGossipConversationTests: XCTestCase {
         let expectReceivedPacket =
             expectation(description: "packet should arrive")
         
-        let dontSend = { (packet: Data) in return }
         let upstream = PassthroughSubject<Data, Never>()
-        let conversation = CasualGossipConversation(from: upstream, sendingWith: dontSend)
+        let conversation = CasualGossipConversation(from: upstream)
 
         var receivedPacket: Data? = nil
         let packets = conversation.sink { packet in
