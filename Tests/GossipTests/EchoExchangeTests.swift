@@ -104,22 +104,22 @@ final class EchoExchangeTests: XCTestCase {
             .autoconnect()
             .receive(on: background)
             .assertNoFailure()
-            .sink { gossip in
+            .sink { [self] gossip in
 
                 defer {
-                    self.background.async {
-                        for _ in 1...self.samplePacketsCount {
+                    background.async {
+                        for _ in 1...samplePacketsCount {
                             let packet = self.arbitraryPacket
                             gossip.send(packet)
-                            self.samplePackets.send((.sent, packet))
+                            samplePackets.send((.sent, packet))
                         }
                     }
                 }
 
                 _ = gossip
-                    .receive(on: self.background)
+                    .receive(on: background)
                     .assertNoFailure()
-                    .sink { packet in self.samplePackets.send((.receivedBack, packet)) }
+                    .sink { [self] packet in samplePackets.send((.receivedBack, packet)) }
                 
             }
         )
@@ -135,9 +135,9 @@ final class EchoExchangeTests: XCTestCase {
             .autoconnect()
             .receive(on: background)
             .assertNoFailure()
-            .sink { packet in
-                self.quidnunc.send(packet)
-                self.samplePackets.send((.echoed, packet))
+            .sink { [self] packet in
+                quidnunc.send(packet)
+                samplePackets.send((.echoed, packet))
             }
         )
     }
@@ -161,13 +161,13 @@ final class EchoExchangeTests: XCTestCase {
         services.append(
             samplePackets
             .handleEvents(receiveCompletion: { _ in expectedCorrectFinish.fulfill() })
-            .sink { (phase, data) in
+            .sink { [self] (phase, data) in
 
-                if !self.transferredPackets.keys.contains(data) {
-                    self.transferredPackets[data] = []
+                if !transferredPackets.keys.contains(data) {
+                    transferredPackets[data] = []
                 }
                 
-                self.transferredPackets[data]?.append(phase)
+                transferredPackets[data]?.append(phase)
 
             }
         )
