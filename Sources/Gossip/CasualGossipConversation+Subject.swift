@@ -8,19 +8,22 @@ extension CasualGossipConversation: Subject {
     ///
     
     public func send(_ value: Data) {
-        #warning("todo")
+        #warning("log")
+        outgoing.send(value)
     }
     
     ///
     
     public func send(completion: Subscribers.Completion<Never>) {
-        #warning("todo")
+        #warning("log")
+        outgoing.send(completion: completion)
     }
     
     ///
     
     public func send(subscription: Subscription) {
-        #warning("todo")
+        #warning("log")
+        outgoing.send(subscription: subscription)
     }
     
 }
