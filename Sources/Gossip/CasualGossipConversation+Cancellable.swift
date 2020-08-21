@@ -9,7 +9,7 @@ extension CasualGossipConversation: Cancellable {
     
     public func cancel() {
         services.forEach { $0.cancel() }
-        outgoing.send(completion: .finished)
+        send(completion: .finished)
     }
     
 }
