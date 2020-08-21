@@ -24,10 +24,8 @@ final class CasualGossipConversationTests: XCTestCase {
         var sentPacket: Data? = nil
 
         let sendFunction = { (packet: Data) in
-            DispatchQueue.main.async {
-                sentPacket = packet
-                expectHandledPacket.fulfill()
-            }
+            sentPacket = packet
+            expectHandledPacket.fulfill()
         }
         
         let upstream = PassthroughSubject<Data, Never>()
