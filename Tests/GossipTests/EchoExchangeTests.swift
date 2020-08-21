@@ -5,7 +5,14 @@ import XCTest
 
 @testable import Gossip
 
+/// Tests example echo exchange between a single quidnunc and an active blabber.
 ///
+/// A `Quidnunc` connects to a `Blabber`, which starts sending a finite amount of arbitrary packets.
+/// Right after arrival of each packet to `Quidnunc`, that very same packet is sent back to `Blabber`.
+/// The `Blabber` finally reads the echoed packet back.
+/// Each stage is configured to report its activity, which will be verified at the end.
+///
+/// - Note: Echo exchange is considered correct when all sent packets echo back unchanged.
 
 final class EchoExchangeTests: XCTestCase {
 
@@ -144,14 +151,8 @@ final class EchoExchangeTests: XCTestCase {
         
     /// Here we demonstrate correctness of a trivial echo echange.
     ///
-    /// A `Quidnunc` connects to a `Blabber`, which starts sending a finite amount of arbitrary packets.
-    /// Right after arrival of each of the packets, our `Quidnunc` sends that very same packet back to `Blabber`.
-    /// The `Blabber` finally reads the echoed packet back.
-    ///
     /// - Note: The test ensures that all the packets were exchanged, and none went missing.
-    ///
-    /// - Warning: The order in which the packets arrive is hardly relevant at this stage, therefiore not taken into account yet.
-    ///
+    /// - Warning: The order in which the packets arrive is hardly relevant at this stage, therefore not taken into account yet.
     
     func testAllSentPacketsEchoed() {
 
