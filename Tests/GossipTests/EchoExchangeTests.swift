@@ -188,7 +188,7 @@ final class EchoExchangeTests: XCTestCase {
     override func tearDownWithError() throws {
         services.forEach { $0.cancel() }
         transferredPackets = [:]
-        try Self.group.syncShutdownGracefully()
+        try Self.group.syncShutdownGracefully() // XXX!
     }
 
 }
