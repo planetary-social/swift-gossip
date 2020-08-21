@@ -16,7 +16,7 @@ final class CasualGossipConversationTests: XCTestCase {
     
     ///
     
-    func testSending() {
+    func testSendingExample() {
         let expectHandledPacket =
             expectation(description: "packet should be handled by a send function")
         
@@ -45,7 +45,7 @@ final class CasualGossipConversationTests: XCTestCase {
     
     ///
     
-    func testReading() {
+    func testReadingExample() {
         let expectReceivedPacket =
             expectation(description: "packet should arrive")
         
