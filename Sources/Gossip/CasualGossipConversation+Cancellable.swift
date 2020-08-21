@@ -5,10 +5,11 @@ import Combine
 
 extension CasualGossipConversation: Cancellable {
 
-    ///
+    /// Close all underlying services and complete the outgoing stream.
     
     public func cancel() {
-        #warning("todo")
+        services.forEach { $0.cancel() }
+        outgoing.send(completion: .finished)
     }
     
 }
