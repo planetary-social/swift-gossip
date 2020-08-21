@@ -24,6 +24,7 @@ extension CasualGossipConversation: Publisher {
     
     public func receive<S>(subscriber: S)
     where S : Subscriber, Failure == S.Failure, Output == S.Input {
+        logger.trace("receiving a subscriber...")
         incoming.receive(subscriber: subscriber)
     }
     

@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+import Logging
 import XCTest
 
 //
@@ -29,7 +30,9 @@ final class CasualGossipConversationTests: XCTestCase {
         }
         
         let upstream = PassthroughSubject<Data, Never>()
+
         let conversation = CasualGossipConversation(from: upstream, sendingWith: sendFunction)
+            conversation.logger.logLevel = .trace
 
         conversation.send(packet)
 
@@ -48,7 +51,9 @@ final class CasualGossipConversationTests: XCTestCase {
             expectation(description: "packet should arrive")
         
         let upstream = PassthroughSubject<Data, Never>()
+
         let conversation = CasualGossipConversation(from: upstream)
+            conversation.logger.logLevel = .trace
 
         var receivedPacket: Data? = nil
         let packets = conversation.sink { packet in

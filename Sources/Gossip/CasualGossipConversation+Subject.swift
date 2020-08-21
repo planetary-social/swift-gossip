@@ -8,14 +8,14 @@ extension CasualGossipConversation: Subject {
     ///
     
     public func send(_ value: Data) {
-        #warning("log")
+        logger.trace("sending a packet of \(value.count) bytes")
         outgoing.send(value)
     }
     
     ///
     
     public func send(completion: Subscribers.Completion<Never>) {
-        #warning("log")
+        logger.trace("gracefully finishing the convesation...")
         outgoing.send(completion: completion)
     }
     
@@ -23,6 +23,7 @@ extension CasualGossipConversation: Subject {
     
     public func send(subscription: Subscription) {
         #warning("log")
+        // XXX: What does this thing actually do?
         outgoing.send(subscription: subscription)
     }
     

@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+import Logging
 
 ///
 
@@ -16,6 +17,10 @@ public class CasualGossipConversation {
     ///
     
     internal let services: [Cancellable]
+    
+    ///
+    
+    public var logger = Logger(label: "social.planetary.gossip.CasualGossipConversation")
 
     ///
     
